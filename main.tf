@@ -44,7 +44,7 @@ terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket                  = "tf-states-s3backend"
-    key                     = "environments/develop/network.tf"
+    key                     = "main.tf"
     region                  = "us-east-1"
     encrypt                 = true
     profile                 = "default"
