@@ -1,4 +1,8 @@
 # Spin up neccessary resources for your terraform state
+resource "aws_kms_key" "tf_state_encryption_key" {
+  description             = "This key is used to encrypt tf_state bucket objects"
+  deletion_window_in_days = 10
+}
 
 resource "aws_s3_bucket" "terraform_states" {
   bucket = "tf-states-s3backend"
@@ -7,12 +11,14 @@ resource "aws_s3_bucket" "terraform_states" {
   versioning {
     enabled = true
   }
-  # Enable server-side encryption by default
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "tf_state_encryption" {
+  bucket = aws_s3_bucket.mybucket.bucket
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.mykey.arn
+      sse_algorithm     = "aws:kms"
     }
   }
 }
@@ -28,15 +34,15 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   }
 }
 
-# terraform {
-#   backend "s3" {
-#     # Replace this with your bucket name!
-#     bucket                  = "tf-states-s3backend"
-#     key                     = "main.tf"
-#     region                  = "us-east-1"
-#     encrypt                 = true
-#     profile                 = "default"
-#     dynamodb_table          = "tf-lock-table"
-#     shared_credentials_file = "$HOME/.aws/credentials"
-#   }
-# }
+terraform {
+  backend "s3" {
+    # Replace this with your bucket name!
+    bucket                  = "tf-states-s3backend"
+    key                     = "main.tf"
+    region                  = "us-east-1"
+    encrypt                 = true
+    profile                 = "default"
+    dynamodb_table          = "tf-lock-table"
+    shared_credentials_file = "$HOME/.aws/credentials"
+  }
+}
