@@ -4,7 +4,7 @@ resource "aws_kms_key" "tf_state_encryption_key" {
   deletion_window_in_days = 10
 }
 
-resource "aws_s3_bucket" "terraform_states" {
+resource "aws_s3_bucket_versioning" "terraform_states" {
   bucket = "tf-states-s3backend"
   # Enable versioning so we can see the full revision history of our
   # state files
@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "terraform_states" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "tf_state_encryption" {
-  bucket = aws_s3_bucket.mybucket.bucket
+  bucket = aws_s3_bucket.terraform_states.bucket
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.mykey.arn
