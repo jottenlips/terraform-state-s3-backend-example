@@ -21,6 +21,8 @@ terraform plan
 terraform apply
 ```
 
+You now have a terraform backend on s3!
+
 3. Use terraform state in other repos for you aws account
 
 ```
