@@ -1,4 +1,4 @@
-# Getting started with Terraform, using s3 state
+# Getting started with Terraform state, using an s3 backend
 
 ## Chicken or Egg?
 
