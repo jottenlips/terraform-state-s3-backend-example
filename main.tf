@@ -38,7 +38,8 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   }
 }
 
-# Now you can use terraform in your other repositories like so
+# Comment out this block on first deploy to generate the s3 bucket and dynamo table.
+# We will be able to import them later and rerun this code once they exist
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
