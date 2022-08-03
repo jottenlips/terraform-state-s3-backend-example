@@ -22,7 +22,6 @@ terraform apply
 ```
 terraform {
   backend "s3" {
-    # Replace this with your bucket name!
     bucket                  = "tf-states-s3backend"
     key                     = "environments/develop/network.tf"
     region                  = "us-east-1"
