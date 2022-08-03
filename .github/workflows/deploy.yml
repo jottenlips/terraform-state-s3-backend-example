@@ -31,7 +31,9 @@ jobs:
       - name: Terraform Deploy
         run: |
           terraform init
-          terraform plan -no-color
+          terraform import aws_dynamodb_table.terraform_state_lock
+          terraform import aws_s3_bucket.terraform_states
+          terraform plan -no-color 
           terraform apply -auto-approve
           echo ${{ steps.plan.outputs.stdout }}
           echo ${{ steps.plan.outputs.stderr }}

@@ -39,15 +39,15 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 }
 
 # Now you can use terraform in your other repositories like so
-# terraform {
-#   backend "s3" {
-#     # Replace this with your bucket name!
-#     bucket                  = "tf-states-s3backend"
-#     key                     = "environments/develop/network.tf"
-#     region                  = "us-east-1"
-#     encrypt                 = true
-#     profile                 = "default"
-#     dynamodb_table          = "tf-lock-table"
-#     shared_credentials_file = "$HOME/.aws/credentials"
-#   }
-# }
+terraform {
+  backend "s3" {
+    # Replace this with your bucket name!
+    bucket                  = "tf-states-s3backend"
+    key                     = "environments/develop/network.tf"
+    region                  = "us-east-1"
+    encrypt                 = true
+    profile                 = "default"
+    dynamodb_table          = "tf-lock-table"
+    shared_credentials_file = "$HOME/.aws/credentials"
+  }
+}
