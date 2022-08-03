@@ -1,5 +1,9 @@
 # Getting started with Terraform, using s3 state
 
+## Chicken or Egg?
+
+In order to use terraform to keep track of your infrastructure, you need a terraform backend. A terraform backend on AWS requires a dynamodb table and an s3 bucket. You could spin up these resources in the console or the aws cli, but what if you want these resources under terraform as well? These 3 steps will get your terraform state under terraform.
+
 1. comment out terraform state block to deploy bucket and dynamodb, deploy
 
 ```
