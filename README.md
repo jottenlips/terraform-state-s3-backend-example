@@ -4,7 +4,7 @@
 
 In order to use terraform to keep track of your infrastructure, you need a terraform backend. A terraform backend on AWS requires a dynamodb table and an s3 bucket. You could spin up these resources in the console or the aws cli, but what if you want these resources under terraform as well? These 3 steps will get your terraform state under terraform.
 
-1. comment out terraform state block to deploy bucket and dynamodb, deploy
+1. comment out the terraform backend to deploy bucket and dynamodb, deploy
 
 ```
 terraform init
@@ -12,7 +12,7 @@ terraform plan
 terraform apply
 ```
 
-2. uncomment state, import dynamodb and s3_bucket that were created, deploy
+2. uncomment terraform backend, import dynamodb and s3_bucket that were created, deploy
 
 ```
 terraform import aws_dynamodb_table.terraform_state_lock "tf-lock-table"
