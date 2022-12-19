@@ -29,7 +29,7 @@ You now have a terraform backend on s3!
 terraform {
   backend "s3" {
     bucket                  = "tf-states-s3backend"
-    key                     = "environments/develop/network.tf"
+    key                     = "environments/develop/network.tfstate"
     region                  = "us-east-1"
     encrypt                 = true
     profile                 = "default"
