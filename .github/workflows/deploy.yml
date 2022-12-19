@@ -12,10 +12,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v1
-      - name: Set up Python 3.9.10
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.9.13
       - name: setup-terraform
         uses: hashicorp/setup-terraform@v2
 
